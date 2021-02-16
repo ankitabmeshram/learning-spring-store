@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,7 +31,7 @@ class StoreControllerTest {
     private StoreService storeService;
 
     @Test
-    public void PostPenReturnsBadRequestWhenInputIsEmpty() throws Exception {
+    void PostPenReturnsBadRequestWhenInputIsEmpty() throws Exception {
 
         /*String request="{\n" +
                 "  \"Color\": \"Red\",\n" +
@@ -116,7 +115,7 @@ class StoreControllerTest {
 
     }
     @Test
-    public void GetPenReturnsPenWhenIdExists() throws Exception {
+    void GetPenReturnsPenWhenIdExists() throws Exception {
         Pen penOutput=new Pen();
         penOutput.setId(1);
         penOutput.setColor("Red");
@@ -139,7 +138,7 @@ class StoreControllerTest {
     }
 
     @Test
-    public void getAllPenWorksForEmptyList() throws Exception {
+    void getAllPenWorksForEmptyList() throws Exception {
 
         when(storeService.getPens()).thenReturn(Collections.emptyList());
 
@@ -149,7 +148,7 @@ class StoreControllerTest {
         result.andExpect(status().isNoContent());
     }
     @Test
-    public void getAllPenWorks() throws Exception {
+    void getAllPenWorks() throws Exception {
 
         List<Pen> expectedPens=new ArrayList<>();
         expectedPens.add(new Pen(1,"Red",12));
@@ -164,7 +163,7 @@ class StoreControllerTest {
     }
 
     @Test
-    public void UpdatePenReturnsNotFound() throws Exception {
+    void UpdatePenReturnsNotFound() throws Exception {
         Pen penInput=new Pen();
         penInput.setId(1);
         penInput.setColor("Red");
@@ -184,7 +183,7 @@ class StoreControllerTest {
     }
 
     @Test
-    public void UpdatePenReturnsOkWithNewData() throws Exception {
+    void UpdatePenReturnsOkWithNewData() throws Exception {
         Pen penInput=new Pen();
         penInput.setColor("Blue");
         penInput.setPrice(12);
@@ -217,7 +216,7 @@ class StoreControllerTest {
     }
 
     @Test
-    public void DeletePenReturnNotFound() throws Exception {
+    void DeletePenReturnNotFound() throws Exception {
         Pen penOutput=new Pen();
         penOutput.setId(1);
         penOutput.setColor("Red");
