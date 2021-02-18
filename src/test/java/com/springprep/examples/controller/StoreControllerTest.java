@@ -45,7 +45,7 @@ class StoreControllerTest {
 
     }
     @Test
-    public void PostPenReturnsCreatedStatusWhenInputIsValid() throws Exception {
+    void PostPenReturnsCreatedStatusWhenInputIsValid() throws Exception {
 
         String request="{\n" +
                 "  \"color\": \"Red\",\n" +
@@ -74,7 +74,7 @@ class StoreControllerTest {
 
     }
     @Test
-    public void PostPenReturnsURIWhenInputIsValid() throws Exception {
+    void PostPenReturnsURIWhenInputIsValid() throws Exception {
 
         String request="{\n" +
                 "  \"color\": \"Red\",\n" +
@@ -105,7 +105,7 @@ class StoreControllerTest {
     }
 
     @Test
-    public void GetPenReturnsNotFoundWhenIdDoesntMatch() throws Exception {
+    void GetPenReturnsNotFoundWhenIdDoesntMatch() throws Exception {
 
         when(storeService.getPen(anyInt())).thenReturn(null);
         ResultActions result = mockMvc.perform(
@@ -126,7 +126,7 @@ class StoreControllerTest {
         ResultActions result = mockMvc.perform(
                 get("/api/store/1").contentType(MediaType.APPLICATION_JSON));
 
-        ;
+
         result.andExpect(status().isOk());
         String response="{\n" +
                 "  \"id\": 1,\n" +
@@ -168,7 +168,8 @@ class StoreControllerTest {
         penInput.setId(1);
         penInput.setColor("Red");
         penInput.setPrice(12);
-        when(storeService.updatePen(penInput)).thenThrow(new DataNotFoundException("Record Not Found in Database"));
+        when(storeService.updatePen(1, penInput)).thenThrow(
+                new DataNotFoundException("Record Not Found in Database"));
 
 
         String request="{\n" +
@@ -199,7 +200,7 @@ class StoreControllerTest {
                 "  \"price\": 12\n" +
                 "}";
 
-        when(storeService.updatePen(penInput)).thenReturn(penOutput);
+        when(storeService.updatePen(1, penInput)).thenReturn(penOutput);
 
 
         String request="{\n" +
@@ -228,6 +229,23 @@ class StoreControllerTest {
                 delete("/api/store/1").contentType(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isNotFound());
+
+
+    }
+
+    @Test
+    void DeletePenSuccessfulReturnsOk() throws Exception {
+        Pen penOutput = new Pen();
+        penOutput.setId(1);
+        penOutput.setColor("Red");
+        penOutput.setPrice(12);
+
+        when(storeService.deletePen(anyInt())).thenReturn(true);
+
+        ResultActions result = mockMvc.perform(
+                delete("/api/store/1").contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk());
 
 
     }

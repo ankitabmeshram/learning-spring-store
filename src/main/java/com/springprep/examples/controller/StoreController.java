@@ -54,7 +54,7 @@ public class StoreController {
         if(pen==null || id==0)
             return ResponseEntity.badRequest().build();
 
-        Pen penAdded = storeService.updatePen(pen);
+        Pen penAdded = storeService.updatePen(id, pen);
         return ResponseEntity.ok(penAdded);
     }
     @DeleteMapping("/{id}")
