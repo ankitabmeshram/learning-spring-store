@@ -51,5 +51,10 @@ class StoreRepositoryTest {
                                               .getPrice());
     }
 
+    @Test
+    void getworks2() {
+
+    }
+
 
 }
